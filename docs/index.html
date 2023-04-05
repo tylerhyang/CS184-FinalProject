@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <style>
+    body {
+      padding: 100px;
+      width: 1000px;
+      margin: auto;
+      text-align: left;
+      font-weight: 300;
+      font-family: 'Open Sans', sans-serif;
+      color: #121212;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+  </style>
+  <title>CS 184 Final Project Proposal</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2023</h1>
+  <h1 align="middle">Final Project: 3D Doodle Jump</h1>
+  <h2 align="middle">Tyler Yang, Vincent Wu, Preston Niayesh, Neel Sen</h2>
+  <p align="middle"><b>Description: </b>3D Doodle Jump is a remake of the hit platforming game Doodle Jump. In our revamped release, we have
+    created 3D character models with rich textures, and improved enemy AI to increase difficulty, all while keeping the
+    go-until-you-die addictiveness of the original game.</p>
+
+  <br><br>
+
+  <div>
+
+    <h2 align="middle">Problem Description</h2>
+    <p>There currently aren’t any infinite-length, procedurally generated 3D platformers. Most go-until-you-die games are 2D like temple run or regular doodle jump, and these games have fallen out of mass popularity like they used to have because of the old graphics and staleness that developed over time. We are going to create a 3D, procedurally generated go-until-you-die platformer that feels fresh with better graphics and simulation methods for enemies. This is challenging because it has not been done before, and it’s a combination of several advanced methods in computer graphics that will be tricky to implement. We are going to solve this problem by using the Unity game engine, drawing on the original Doodle Jump for inspiration, and consulting academic papers and online resources for simulation and animation methods.
+    </p>
+
+    <h2 align="middle">Goals and Deliverables</h2>
+
+    <p>The main deliverable for our proposal will be a video demo of our final game.  The demo will allow prospective users to see how the game works as we attempt to traverse the levels.  The game will showcase the core functionalities that we have implemented with a focus on the core aspects of doodle jump: platforming, enemy interactions, and procedural world generation at a 3D scope.  Furthermore, we will make the game demo available to be downloaded and use.  To measure quality, we will undergo user testing, taking feedback from other students in terms of smoothness of gameplay, ease of use/intuitiveness, and whether the interactions based on preset parameters(jump height/bullet speed, movement sensitivity) are up to par with expectations.</p>
+    <p>In the case that we are ahead of schedule and are able to create a product that we are satisfied with, two features that would be prioritized and explore would be to exploring 1) the possibility of making the game compatible with VR devices and 2) implementing realistic shaders and lighting into the game.  We intend to look into Unity and methods of shipping out our game in a VR compatible format to satisfy the VR goal and to explore various shaders to achieve the desired lighting effects. </p>
+    <p>here is a set of goals that we have dictated that we would like to achieve: </p>
+    <ul>
+      <li>Player and adversary modeling
+        <ul>
+          <li>Building out character and adversary schemas (do we port over handmade models into unity?)</li>
+        </ul>
+      </li>
+      <li>World building
+        <ul>
+          <li>Integrating procedural generation at a 3D scale</li>
+          <li>Texture mapping for platforms and character models</li>
+          <li>Integrating platform types (one bounce, multi bounce, moving platforms)</li>
+        </ul>
+      </li>
+      <li>User interactions
+        <ul>
+          <li>Ray tracing model to have pellets hit enemies (gravity to sim real-world aiming if it has time)</li>
+          <li>Cursor based aiming to target</li>
+          <li>Movement and jumping (changes in FOV and real-time rendering to make adjustments)</li>
+          <li>Enemy AI</li>
+          <li>Features for enemies</li>
+          <li>Flock based swarming</li>
+        </ul>
+      </li>
+      <li>Learning Unity
+        <ul>
+          <li>Integrating features into Unity for game dev</li>
+        </ul>
+      </li>
+      <li>REACH GOALS:
+        <ul>
+          <li>RTX on/off comparison for game visuals</li>
+          <li>compatibility/portability to VR engines</li>
+        </ul>
+      </li>
+    </ul>
+    <h2 align="middle">Schedule</h3>
+      <p>Week 1: Learning week:  We will take the time to investigate the necessary tools we need (building out animations, how we plan on having the player’s actions registered, necessary docs to apply to each section above, familiarity, compute limitations.)  We are also going to need to build proficiency in C#.  Milestone:  Setup up basic project skeleton s.t. We can use unity and properly setup dependencies.</p>
+      <p>Week 2: Team A: World and character building: Implement the various features that are needed for the world: build out the base platform and base enemy objects and base player object Milestone:  The character should be able to perform the following interactions: Jump in a direction, jump on a platform, and trigger the death screen when the player and enemy interact.  Character models do not need to be complete (circles and rectangles work fine as placeholders)</p>
+      <p>Week 3: Build out character-world interactions.  Integrate procedural world generation s.t. The user can continue to the platform. Integrate raytracing to see whether the ray will intersect with an enemy at timestep t.  Implement different platform polymorphisms</p>
+      <p>Week 4: Buffer Week/Build out styling: create character models, texture map features onto platforms, and explore reach goals.  Work on filming the demo and finetuning any issues.</p>
+     
+    <h2 align="middle">Resources</h2>
+    <ul>
+      <li>Game Devs General:
+        <ul>
+          <li>Unity Learn: <a href="https://learn.unity.com/">https://learn.unity.com/</a></li>
+          <li>Godot docs: <a href="https://docs.godotengine.org/en/stable/index.html">https://docs.godotengine.org/en/stable/index.html</a></li>
+        </ul>
+      </li>
+      <li>Past project/reference:
+        <ul>
+          <li><a href="https://cal-cs184-student.github.io/sp22-project-webpages-xinwei-zhuang/proj_fin/proposal.html">https://cal-cs184-student.github.io/sp22-project-webpages-xinwei-zhuang/proj_fin/proposal.html</a></li>
+          <li><a href="https://www.youtube.com/watch?v=-7JwsxprrfA">https://www.youtube.com/watch?v=-7JwsxprrfA</a></li>
+        </ul>
+      </li>
+    </ul>
+</body>
+
+</html>
