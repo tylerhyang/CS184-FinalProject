@@ -16,6 +16,7 @@ public class AdversaryScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.centerOfMass = new Vector3(0, -1.0f, 0);
     }
 
     // Update is called once per frame
@@ -31,22 +32,6 @@ public class AdversaryScript : MonoBehaviour
         {
             playerSeen = true;
             rb.MovePosition(transform.position + direction * speed * Time.fixedDeltaTime);
-        }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            // Get the normal of the collision to determine if the player collided with the enemy from above
-            Vector3 contactNormal = collision.contacts[0].normal.normalized;
-            Rigidbody playerRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            playerRigidbody.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
-            Debug.Log(contactNormal.ToString());
-            if (contactNormal.y < -0.75) //adding some room for error
-            {
-                // If the player collided with the enemy from above, destroy the enemy
-                Destroy(gameObject);
-            }
         }
     }
 }
