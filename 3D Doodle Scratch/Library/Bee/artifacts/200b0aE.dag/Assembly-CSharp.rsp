@@ -349,8 +349,10 @@
 "Assets/Scripts/AdversaryScript.cs"
 "Assets/Scripts/DamageScript.cs"
 "Assets/Scripts/KillScript.cs"
+"Assets/Scripts/PatrolScript.cs"
 "Assets/Scripts/PlayerMovement.cs"
 "Assets/Scripts/RandomPlatformSpawner.cs"
+"Assets/Scripts/staticScript.cs"
 -langversion:9.0
 
 /deterministic

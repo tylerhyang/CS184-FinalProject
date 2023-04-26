@@ -8,9 +8,10 @@ public class AdversaryScript : MonoBehaviour
     public float speed = 5f; // The speed at which the enemy moves.
     public float chaseDistance = 10f; // The maximum distance at which the enemy can chase the player.
     public Transform player; // A reference to the player object.
-
-    public float bounceForce = 30f;
-    private bool playerSeen = false;
+    public Transform followTarget;
+    public bool playerSeen = false;
+    public bool chasingPlayer = false;
+    public float alertRadius = 10f;
 
     private Rigidbody rb; // The enemy's Rigidbody component.
     void Start()
@@ -27,11 +28,34 @@ public class AdversaryScript : MonoBehaviour
         // Calculate the distance from the enemy to the player.
         float distance = Vector3.Distance(player.position, transform.position);
 
-        // If the player is within the chase distance, move towards them.
+        // alert distance logic to make enemies within range of the player to alert other chase enemies
         if (distance <= chaseDistance || playerSeen)
         {
             playerSeen = true;
+            Collider[] colliders = Physics.OverlapSphere(transform.position, alertRadius);
+            foreach (Collider collider in colliders)
+            {
+                if (collider.gameObject != gameObject && collider.gameObject.tag == "chaseEnemy")
+                {
+            
+            // Set follow target to player
+                    collider.gameObject.GetComponent<AdversaryScript>().chasingPlayer = true;
+                }
+            }
+        }
+
+        if (chasingPlayer || playerSeen)
+        {
+        // Move towards follow target
+            transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             rb.MovePosition(transform.position + direction * speed * Time.fixedDeltaTime);
         }
     }
+    void OnDrawGizmosSelected()
+{
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawWireSphere(transform.position, alertRadius);
+    Gizmos.color = Color.blue;
+    Gizmos.DrawWireSphere(transform.position, chaseDistance);
+}
 }
