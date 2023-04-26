@@ -192,7 +192,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 219872598}
-  m_LocalRotation: {x: 0.062324412, y: 0.000000017701456, z: -0.0000000011053818, w: 0.998056}
+  m_LocalRotation: {x: 0.062324412, y: -0.000000017701446, z: 0.0000000011053811, w: 0.998056}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1472,11 +1472,11 @@ MonoBehaviour:
   platformPrefab: {fileID: 237022790277408410, guid: 76284b169280b4b76b1539f1ecf777e0, type: 3}
   numPlatformsToStart: 40
   minYDistance: 3
-  maxYDistance: 8
-  minXDistance: -20
-  maxXDistance: 20
+  maxYDistance: 7
+  minXDistance: -18
+  maxXDistance: 18
   minZDistance: 5
-  maxZDistance: 15
+  maxZDistance: 14
   deleteDistance: 20
   perlinScaleX: 0.1
   perlinScaleY: 0.1

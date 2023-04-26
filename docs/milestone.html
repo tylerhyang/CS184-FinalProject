@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      padding: 100px;
+      width: 1000px;
+      margin: auto;
+      text-align: left;
+      font-weight: 300;
+      font-family: 'Open Sans', sans-serif;
+      color: #121212;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+  </style>
+  <meta charset="UTF-8">
+  <title>Milestone</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
+<body>
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2023</h1>
+<h1 align="middle">Final Project: 3D Doodle Jump - Milestone</h1>
+<h2 align="middle">Tyler Yang, Vincent Wu, Preston Niayesh, Neel Sen</h2>
+<br>
+
+<h2 align="middle">Player Movement and Third Person Camera</h2>
+<p>
+  We created a PlayerMovement script for 3D Unity games that handles player movement, rotation, and jumping using the CharacterController component and CinemachineFreeLook for a third-person camera. The script employs Quaternion.Euler to smoothly rotate the player GameObject and calculate movement direction, avoiding issues like gimbal lock in 3D rotations. It uses Physics.gravity.y to apply gravity, making the character fall and jump when grounded, while the gravityScale field adjusts the gravity strength for customization. The script provides a standard player movement system, including horizontal and vertical movement, smooth rotation, and user-input-based jumping.
+</p>
+
+<h2 align="middle">Procedural Platform Generation</h2>
+<p>
+  We created the RandomPlatformSpawner script for a 3D Doodle Jump-like game, generating platforms with random positions as the player progresses. To prevent lag, platforms behind and below the player are deleted.
+  We utilized Perlin Noise for natural-looking randomness in platform positions, employing Mathf.Lerp to interpolate between minimum and maximum distances in x and y directions. The perlinWeight parameter controls the smoothing applied by Perlin Noise, influencing the balance between smoothness and randomness.
+  Additionally, we ensured no platforms spawn partially inside others using Physics.OverlapBox to check for collider overlaps. The player's score is calculated using their position.y + position.z, and it resets if they fall and respawn.
+</p>
+
+<h2 align="middle">Enemy simulation stuff... (will also need to add content/edit to this last paragraph below)</h2>
+
+<h2 align="middle">Preliminary results, Progress relative to your plan, Work Plan</h2>
+<p>Preliminary results have been good. The gameplay feels smooth after tweaking the hyperparameters related to Perlin noise and distance ranges for random spawning. Overall, our progress has been going according to plan. Our future work plan includes: </p>
+<ol>
+  <li>Replacing our primitive shapes with 3D models</li>
+  <li>Integrating the enemy AI with the player infinite level progression</li>
+  <li>Integrating various platform types with the random prefab spawning</li>
+  <li>(REACH) Adding animations</li>
+</ol>
+</body>
+</html>
