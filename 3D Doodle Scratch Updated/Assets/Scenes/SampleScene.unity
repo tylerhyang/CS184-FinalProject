@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028353, g: 0.22571383, b: 0.30692253, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571337, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 450455207}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1470,6 +1470,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformPrefab: {fileID: 237022790277408410, guid: 76284b169280b4b76b1539f1ecf777e0, type: 3}
+  staticPrefab: {fileID: 5574606471843518704, guid: f43c1d1da17d749bab0674fe26fbcc57, type: 3}
+  patrolPrefab: {fileID: 8883658027040085707, guid: 61f9dd5b3a4af48929db1e42380f8cca, type: 3}
+  chasePrefab: {fileID: 2519887378471280083, guid: b62fb7dc5dcaa4bd2a50c7821339fd13, type: 3}
   numPlatformsToStart: 40
   minYDistance: 3
   maxYDistance: 7
@@ -1482,6 +1485,7 @@ MonoBehaviour:
   perlinScaleY: 0.1
   perlinSeed: 0
   maxPlatformsPerLevel: 4
+  maxEnemiesPerLevel: 1
   perlinWeight: 0
   playerTransform: {fileID: 450455206}
 --- !u!1 &2111690231
