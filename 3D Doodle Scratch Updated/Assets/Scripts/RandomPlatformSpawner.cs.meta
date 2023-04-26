@@ -3,7 +3,12 @@ guid: e1fcbf05ee7df43d7a5c2b3aa66a711d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - platformPrefab: {fileID: 237022790277408410, guid: 76284b169280b4b76b1539f1ecf777e0, type: 3}
+  - staticPrefab: {fileID: 5574606471843518704, guid: f43c1d1da17d749bab0674fe26fbcc57, type: 3}
+  - patrolPrefab: {fileID: 8883658027040085707, guid: 61f9dd5b3a4af48929db1e42380f8cca, type: 3}
+  - chasePrefab: {fileID: 5574606471843518704, guid: f43c1d1da17d749bab0674fe26fbcc57, type: 3}
+  - playerTransform: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
