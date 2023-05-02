@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      padding: 100px;
+      width: 1000px;
+      margin: auto;
+      text-align: left;
+      font-weight: 300;
+      font-family: 'Open Sans', sans-serif;
+      color: #121212;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+  </style>
+  <meta charset="UTF-8">
+  <title>Milestone</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
+<body>
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2023</h1>
+<h1 align="middle">Final Project: 3D Doodle Jump - Milestone</h1>
+<h2 align="middle">Tyler Yang, Vincent Wu, Preston Niayesh, Neel Sen</h2>
+<br>
+
+<h2 align="middle">Player Movement and Third Person Camera</h2>
+<p>
+  We created a PlayerMovement script for 3D Unity games that handles player movement, rotation, and jumping using the CharacterController component and CinemachineFreeLook for a third-person camera. The script employs Quaternion.Euler to smoothly rotate the player GameObject and calculate movement direction, avoiding issues like gimbal lock in 3D rotations. It uses Physics.gravity.y to apply gravity, making the character fall and jump when grounded, while the gravityScale field adjusts the gravity strength for customization. The script provides a standard player movement system, including horizontal and vertical movement, smooth rotation, and user-input-based jumping.
+</p>
+
+<h2 align="middle">Procedural Platform Generation</h2>
+<p>
+  We created the RandomPlatformSpawner script for a 3D Doodle Jump-like game, generating platforms with random positions as the player progresses. To prevent lag, platforms behind and below the player are deleted.
+  We utilized Perlin Noise for natural-looking randomness in platform positions, employing Mathf.Lerp to interpolate between minimum and maximum distances in x and y directions. The perlinWeight parameter controls the smoothing applied by Perlin Noise, influencing the balance between smoothness and randomness.
+  Additionally, we ensured no platforms spawn partially inside others using Physics.OverlapBox to check for collider overlaps. The player's score is calculated using their position.y + position.z, and it resets if they fall and respawn.
+</p>
+
+<h2 align="middle">Enemy Simulation</h2>
+<p>
+  For this milestone, we have developed 3 enemy subtypes.  All enemies share the same following characteristics:  1) if the player touches the enemy on any side besides the top, the player will be killed and the game will end. 2) if the player manages to jump on top of the enemy, the enemy will be killed and the player will bounce off the enemy.  To achieve this characteristic, we created two disjoint hitboxes that roughly cover the entire shape of the enemy.  We then took advantage of the OnTriggerEnter() function that Unity has access to which allows for the our enemies to respond to different contact points from the player.
+</p>
+<h2 align="middle">Video Demos</h2>
+<div align="middle">
+  <figure>
+    <video src="assets/enemyDemoEdit.mp4" width="320" height="240" controls></video>
+    <figcaption>Demo showcasing different enemy behaviors</figcaption>
+  </figure>
+  <figure>
+    <video src="assets/milestoneGamePlay.mov" width="320" height="240" controls></video>
+    <figcaption>Demo showcasing perlin noise platform generation, camera tracking, and player interaction with platforms</figcaption>
+  </figure>
+</div>
+<h2 align="middle">Powerpoint demo</h2>
+<div align="middle">
+<embed src="assets/powpt.pdf" type="application/pdf" width="100%" height="600px" />
+</div>
+<p>  In addition to building out the basic enemy characteristics, we also developed three enemy polymorphs to add variety into the game: static enemy, partrol enemy, and chase enemy.  The most basic enemy is the static enemy which has no additional functions.  It remains static and despawns once the player is out of range in the z-axis.  The second enemy is the patrol enemy.  The patrol enemy will travel back and forth along the x-z axis plane.  To ensure that there would not be cases where the patrol agent would pass through platforms or other agents, we accounted for collisions that would lead the patrol agent to "bounce" back.  The last type of enemy is the chase enemy.  The chase enemy is the most sophisticated of the three enemy types.  If the player comes within range of the chase enemy, it will follow the player.  Even if the player exits the initial detection range, the chase enemy will continue to track the player.  Another feature of the chase enemy is the ability to alert other chase enemys of the player's location.  Each chase enemy has a property called an alertRadius.  If any other chase agents are within this radius, they will also start to track the player.  To look out for cascading effects, we prevent alerted chase enemies that are out of chase distance from the player from alerting other chase enemies.</p>
+<h2 align="middle">Preliminary results, Progress relative to your plan, Work Plan</h2>
+<p>Preliminary results have been good. The gameplay feels smooth after tweaking the hyperparameters related to Perlin noise and distance ranges for random spawning. Overall, our progress has been going according to plan. Our future work plan includes: </p>
+<ol>
+  <li>Replacing our primitive shapes with 3D models</li>
+  <li>Integrating the enemy AI with the player infinite level progression</li>
+  <li>Integrating various platform types with the random prefab spawning</li>
+  <li>(REACH) Adding animations</li>
+</ol>
+</body>
+</html>
