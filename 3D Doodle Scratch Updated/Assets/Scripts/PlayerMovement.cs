@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform cam;
     public float moveSpeed;
     public float jumpHeight;
-    public float gravityScale = 1.5f;
+    public float gravityScale = 0;
 
     public float turnSmoothTime = 0.1f;
     private float _turnSmoothVelocity;
@@ -41,9 +41,14 @@ public class PlayerMovement : MonoBehaviour
 
             move = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         }
-
-        move.y = -0.1f;
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        
+        move.y = 20.0f *( Time.deltaTime);
+        move.x *= moveSpeed * Time.deltaTime;
+        move.z *= moveSpeed * Time.deltaTime;
+        controller.Move(move);
+        // UNCOMMENT FOR ORIGINAL FUNCTIONALITY AND SHIFT PLAYER SPEED TO 12 AND GRAVITY TO 2
+        //move.y = -0.1f;
+        // controller.Move(move * moveSpeed * Time.deltaTime);
 
         if (controller.isGrounded)
         {

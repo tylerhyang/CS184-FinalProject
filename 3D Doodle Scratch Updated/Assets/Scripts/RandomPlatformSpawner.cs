@@ -27,6 +27,7 @@ public class RandomPlatformSpawner : MonoBehaviour
     private Queue<GameObject> enemyQueue;
 
     private Vector3 lastPlatformPosition;
+    private Vector3 prevLastPlatformPosition;
     private Vector3 lastEnemyPosition;
 
     private void Start()
@@ -63,6 +64,7 @@ public class RandomPlatformSpawner : MonoBehaviour
 
     private void SpawnPlatform()
     {
+        int numPlatformsGenerated = 0;
         int numPlatformsToGenerate = Random.Range(1, maxPlatformsPerLevel);
         Vector3 totalPlatformPositions = Vector3.zero;
 
@@ -76,16 +78,32 @@ public class RandomPlatformSpawner : MonoBehaviour
             newPosition.y += (1 - perlinWeight) * Random.Range(minYDistance, maxYDistance) + perlinWeight * Mathf.Lerp(minYDistance, maxYDistance, perlinValueY);
             newPosition.z += Random.Range(minZDistance, maxZDistance);
 
-            GameObject newPlatform = Instantiate(platformPrefab, newPosition, Quaternion.identity);
-            platformQueue.Enqueue(newPlatform);
+            // Check for collisions
+            Collider[] colliders = Physics.OverlapBox(newPosition, platformPrefab.transform.localScale / 2, Quaternion.identity);
+            bool hasCollision = false;
+            foreach (Collider collider in colliders)
+            {
+                if (collider.gameObject.tag != "Player") // Exclude the player from the collision check
+                {
+                    hasCollision = true;
+                    break;
+                }
+            }
 
-            totalPlatformPositions += newPosition;
-            perlinSeed += perlinScaleX;
-        }
+            if (!hasCollision)
+            {
+                GameObject newPlatform = Instantiate(platformPrefab, newPosition, Quaternion.identity);
+                platformQueue.Enqueue(newPlatform);
+                totalPlatformPositions += newPosition;
+                numPlatformsGenerated++;
+                perlinSeed += perlinScaleX;
+            }
 
-        if (numPlatformsToGenerate > 0)
+        if (numPlatformsGenerated > 0)
         {
-            lastPlatformPosition = totalPlatformPositions / numPlatformsToGenerate;
+            prevLastPlatformPosition = lastPlatformPosition;
+            lastPlatformPosition = totalPlatformPositions / numPlatformsGenerated;
+        }
         }
     }
 
@@ -96,21 +114,32 @@ public class RandomPlatformSpawner : MonoBehaviour
 
         for (int i = 0; i < numEnemiesToGenerate; i++)
         {
-            Vector3 newPosition = lastEnemyPosition;
+            Vector3 enemyPosition = prevLastPlatformPosition;
             float perlinValueX = Mathf.PerlinNoise(perlinSeed, 0);
             float perlinValueY = Mathf.PerlinNoise(0, perlinSeed);
 
-            newPosition.x += (1 - perlinWeight) * Random.Range(minXDistance, maxXDistance) + perlinWeight * Mathf.Lerp(minXDistance, maxXDistance, perlinValueX);
-            newPosition.y += (1 - perlinWeight) * Random.Range(minYDistance, maxYDistance) + perlinWeight * Mathf.Lerp(minYDistance, maxYDistance, perlinValueY);
-            newPosition.z += Random.Range(minZDistance, maxZDistance);
-
-        //generate an enemy based on enemy CDF
+            enemyPosition.x += (1 - perlinWeight) * Random.Range(minXDistance, maxXDistance) + perlinWeight * Mathf.Lerp(minXDistance, maxXDistance, perlinValueX);
+            enemyPosition.y += (1 - perlinWeight) * Random.Range(minYDistance, maxYDistance) + perlinWeight * Mathf.Lerp(minYDistance, maxYDistance, perlinValueY);
+            enemyPosition.z += Random.Range(minZDistance, maxZDistance);
             GameObject enemy = randomEnemyGen();
-            GameObject newPlatform = Instantiate(enemy, newPosition, Quaternion.identity);
-            platformQueue.Enqueue(newPlatform);
+            Collider[] colliders = Physics.OverlapBox(enemyPosition, enemy.transform.localScale / 2, Quaternion.identity);
+            bool hasCollision = false;
+            foreach (Collider collider in colliders)
+            {
+                if (collider.gameObject.tag != "Player") // Exclude the player from the collision check
+                {
+                    hasCollision = true;
+                    break;
+                }
+            }
 
-            totalEnemyPositions += newPosition;
-            perlinSeed += perlinScaleX;
+            if (!hasCollision)
+            {
+                GameObject newEnemy = Instantiate(enemy, enemyPosition, Quaternion.identity);
+                enemyQueue.Enqueue(newEnemy);
+                totalEnemyPositions += enemyPosition;
+                perlinSeed += perlinScaleX;
+            }
         }
 
         if (numEnemiesToGenerate > 0)

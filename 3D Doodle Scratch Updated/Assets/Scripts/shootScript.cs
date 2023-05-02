@@ -12,7 +12,7 @@ public class shootScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFireTime)
+        if (Input.GetButton("Fire1") && Time.time > nextFireTime)
         {
             nextFireTime = Time.time + fireRate;
             FirePellet();
