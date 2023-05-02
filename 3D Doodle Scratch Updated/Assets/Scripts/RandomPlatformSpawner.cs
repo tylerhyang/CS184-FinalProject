@@ -34,6 +34,11 @@ public class RandomPlatformSpawner : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         platformQueue = new Queue<GameObject>();
         enemyQueue    = new Queue<GameObject>();
+        Vector3 pos = playerTransform.position;
+        pos.y -= 2;
+
+        GameObject newPlatform = Instantiate(platformPrefab, pos, Quaternion.identity);
+        platformQueue.Enqueue(newPlatform);
 
         lastPlatformPosition = new Vector3(0, 0, 0);
         lastEnemyPosition = new Vector3(0, 0, 0);
