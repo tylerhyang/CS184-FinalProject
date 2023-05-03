@@ -42,13 +42,13 @@ public class PlayerMovement : MonoBehaviour
             move = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         }
         
-        move.y = 20.0f *( Time.deltaTime);
-        move.x *= moveSpeed * Time.deltaTime;
-        move.z *= moveSpeed * Time.deltaTime;
-        controller.Move(move);
+        // move.y = 20.0f *( Time.deltaTime);
+        // move.x *= moveSpeed * Time.deltaTime;
+        // move.z *= moveSpeed * Time.deltaTime;
+        // controller.Move(move);
         // UNCOMMENT FOR ORIGINAL FUNCTIONALITY AND SHIFT PLAYER SPEED TO 12 AND GRAVITY TO 2
-        //move.y = -0.1f;
-        // controller.Move(move * moveSpeed * Time.deltaTime);
+        move.y = -0.1f;
+        controller.Move(move * moveSpeed * Time.deltaTime);
 
         if (controller.isGrounded)
         {
