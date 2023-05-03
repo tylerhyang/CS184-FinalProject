@@ -168,12 +168,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  chaseDistance: 20
+  chaseDistance: 10
   player: {fileID: 0}
   followTarget: {fileID: 0}
   playerSeen: 0
   chasingPlayer: 0
-  alertRadius: 20
+  alertRadius: 50
 --- !u!54 &2519887378471280084
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -55,9 +55,9 @@ public class AdversaryScript : MonoBehaviour
             transform.LookAt(player);
         }
     }
-    void OnDrawGizmosSelected()
+    void OnDrawGizmos()
 {
-    Gizmos.color = Color.yellow;
+    Gizmos.color = Color.red;
     Gizmos.DrawWireSphere(transform.position, alertRadius);
     Gizmos.color = Color.blue;
     Gizmos.DrawWireSphere(transform.position, chaseDistance);

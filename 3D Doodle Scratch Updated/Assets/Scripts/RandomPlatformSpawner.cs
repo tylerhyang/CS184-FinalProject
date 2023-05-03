@@ -149,19 +149,19 @@ public class RandomPlatformSpawner : MonoBehaviour
     }
     private GameObject randomEnemyGen()
     {
-        float randomValue = Random.value;
+        // float randomValue = Random.value;
 
-        if (randomValue < 0.5f)
-        {
-            return staticPrefab;
-        }
-        else if (randomValue < 0.75f)
-        {
-            return patrolPrefab;
-        }
-        else
-        {
+        // if (randomValue < 0.5f)
+        // {
+        //     return staticPrefab;
+        // }
+        // else if (randomValue < 0.75f)
+        // {
+        //     return patrolPrefab;
+        // }
+        // else
+        // {
         return chasePrefab;
-        }
+        // }
     }
 }
