@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c35b12ebb39b45bc84b20adffc43e1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   chaseDistance: 20
   player: {fileID: 0}
   followTarget: {fileID: 0}

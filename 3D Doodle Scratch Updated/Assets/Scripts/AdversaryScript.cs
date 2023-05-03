@@ -52,6 +52,7 @@ public class AdversaryScript : MonoBehaviour
         // Move towards follow target
             transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
             rb.MovePosition(transform.position + direction * speed * Time.fixedDeltaTime);
+            transform.LookAt(player);
         }
     }
     void OnDrawGizmosSelected()
