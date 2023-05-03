@@ -1,0 +1,11 @@
+# Material file for cave_monster.obj
+
+newmtl cave_monster_m
+	Ns 10
+	d 1
+	illum 2
+	Kd 0.8 0.8 0.8
+	Ks 0.0 0.0 0.0
+	Ka 0.2 0.2 0.2
+	map_Kd cave_monster.png
+
