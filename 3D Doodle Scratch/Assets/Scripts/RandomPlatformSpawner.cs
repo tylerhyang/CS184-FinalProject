@@ -4,6 +4,7 @@ using UnityEngine;
 public class RandomPlatformSpawner : MonoBehaviour
 {
     public GameObject platformPrefab;
+    public GameObject glassPlatform;
     public int numPlatformsToStart = 10;
     public float minYDistance = 2f;
     public float maxYDistance = 10f;
@@ -61,8 +62,14 @@ public class RandomPlatformSpawner : MonoBehaviour
             newPosition.x += (1 - perlinWeight) * Random.Range(minXDistance, maxXDistance) + perlinWeight * Mathf.Lerp(minXDistance, maxXDistance, perlinValueX);
             newPosition.y += (1 - perlinWeight) * Random.Range(minYDistance, maxYDistance) + perlinWeight * Mathf.Lerp(minYDistance, maxYDistance, perlinValueY);
             newPosition.z += Random.Range(minZDistance, maxZDistance);
-
-            GameObject newPlatform = Instantiate(platformPrefab, newPosition, Quaternion.identity);
+            GameObject newPlatform;
+            float platformTypeSeed = Random.Range(0, 10000);
+            if (platformTypeSeed > 5000) {
+                newPlatform = Instantiate(platformPrefab, newPosition, Quaternion.identity);
+            } else {
+                newPlatform = Instantiate(glassPlatform, newPosition, Quaternion.identity);
+            }
+            // GameObject newPlatform = Instantiate(platformPrefab, newPosition, Quaternion.identity);
             platformQueue.Enqueue(newPlatform);
 
             totalPlatformPositions += newPosition;
