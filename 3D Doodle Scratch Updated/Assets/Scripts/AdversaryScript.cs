@@ -18,8 +18,9 @@ public class AdversaryScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = new Vector3(0, -1.0f, 0);
-            player = GameObject.FindGameObjectWithTag("Player").transform; // A reference to the player object.
-            followTarget = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform; // A reference to the player object.
+        followTarget = GameObject.FindGameObjectWithTag("Player").transform;
+        transform.rotation = Quaternion.Euler(0f, 180f, 0f);
     }
 
     // Update is called once per frame
