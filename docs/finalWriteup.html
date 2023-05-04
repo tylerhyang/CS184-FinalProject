@@ -7,6 +7,7 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 16px;
+            padding: 0 12%;
         }
         h1 {
             text-align: center;
@@ -38,8 +39,15 @@
     </style>
 </head>
 <body>
-    <h1>Final Project Writeup</h1>
-    
+    <h1>3D Doodle Jump</h1>
+    <h2>Video Demo</h2>
+    <figure class="grid-item">
+        <video controls width="100%">
+          <source src="video3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <figcaption>blah </figcaption>
+      </figure>
     <h2>Abstract</h2>
     <p>Doodle Jump, a game developed by Lima Sky in 2010, became an quick hit, presenting an infinite length game where players could continue to platform, shoot enemies, and climb to new heights.  With a rich set of computer graphics fundamentals used in the development of this game, we have reimagined the game in a 3D context, porting over some of the most beloved features from the original game into a three-dimensional scene.  In our project, we integrated a custom model player with the ability to rotate camera angles and jump from platform to platform, integrated three different enemy polymorphs with different abilities as well as their interactions with the player.  In addition, we have also developed a shooting mechanic for the player leveraging built-in raycasting and collision detection.  Additionally, we have integrated custom textures and models using AI generated tools such as Stable Diffusion.  The purpose of integrating these features is to increase the gameplay difficulty as well as providing an interactive third-person “platform-until-you-die” and shooter game while implementing the rich computer graphics requirements to result in a smooth and functional game.</p>
     
@@ -86,5 +94,31 @@
     <h2>Lesson Learned</h2>
     <p>TODO @VINCENT @PRESTON: Insert your lesson learned text here.</p>
     <p>Through the build process of our game, we noticed that Unity was able to provided a rich API to allow for the code that was needed to be minimal and concise.  Built in functions allowed for otherwise complex features such as initializing bounding regions and raycasting to be minimized to a few function calls.  Furthermore, we learned a lot about the niche features of Unity, especially trigger volumes for increasing detection accuracy as well as how we could use disjoint combinations of trigger volumes to allow for various combinations of interactions.  Using this understanding, for future game development, we hope to investigate how we can perform sequences of trigger volume interactions to perform modularly constructed chain events within a game scene.</p>
+    <h2>Results</h2>
+    <div class="grid-container">
+        <figure class="grid-item">
+          <video controls width="100%">
+            <source src="video1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <figcaption>blah </figcaption>
+        </figure>
+        <figure class="grid-item">
+          <video controls width="100%">
+            <source src="video2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <figcaption>blah </figcaption>
+        </figure>
+        <figure class="grid-item">
+          <video controls width="100%">
+            <source src="video3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <figcaption>blah </figcaption>
+        </figure>
+      </div>
+      <h2>References</h2>
+      <h2>Contributions</h2>
 </body>
 </html>
