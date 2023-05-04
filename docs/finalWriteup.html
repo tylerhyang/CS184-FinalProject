@@ -73,21 +73,27 @@
     <h3>Player Movement</h3>
     <p>The primary script we developed, "PlayerMovement," is written in C# and utilizes Unity's built-in physics engine.
         We leveraged the CharacterController component for handling movement and collision detection, which offers
-        better performance than Rigidbody for character control [1].
+        better performance than Rigidbody for character control.
         We utilized Quaternion and Euler angles for smooth character rotation, ensuring the character's orientation
         always matches its direction of movement. The Mathf.Atan2 function calculates the angle between the player's
         movement direction and the camera's forward direction. This angle is then converted to degrees with
         Mathf.Rad2Deg and added to the camera's y-axis Euler angle. Using Mathf.SmoothDampAngle, we interpolated the
-        character's rotation over time, achieving a smooth transition between angles [2].
+        character's rotation over time, achieving a smooth transition between angles.
         Gravity scaling was implemented by multiplying the default Physics.gravity by a user-defined gravityScale
-        variable. This allowed us to customize the gravity strength, improving the feel of our character's jump [3].
+        variable. This allowed us to customize the gravity strength, improving the feel of our character's jump.
         We also enhanced the standard character jump found in many tutorials by implementing proper collision detection,
         ensuring the player bounces as soon as they touch the ground or an enemy's head. This was achieved using the
-        isGrounded property of the CharacterController component [4].
+        isGrounded property of the CharacterController component.
     </p>
 
     <h3>Platform Spawner</h3>
-    <p>TODO</p>
+    <p>The Random Platform Spawner is a script designed for a 3D Doodle Jump-like game that generates platforms with random positions as the player moves forward and upward. The main goal of the script is to create a dynamic and engaging experience for the player while maintaining smooth gameplay and preventing lag.
+        Our approach is based on procedural generation techniques, specifically Perlin Noise, a well-known algorithm introduced by Ken Perlin in 1983. Perlin Noise is a coherent noise function that creates smooth gradients between values, allowing for more natural-looking randomness. It works by interpolating a series of pseudo-random gradient vectors over a grid, resulting in a continuous, non-repeating pattern.
+        In the Random Platform Spawner script, we used Perlin Noise in combination with Mathf.Lerp, a Unity function that linearly interpolates between two values based on a weight parameter. Mathf.Lerp takes three arguments: the two values to interpolate and a weight parameter. In our case, the two values are the minimum and maximum platform distances in the x and y directions, and the weight parameter is derived from the Perlin Noise.
+        We introduced a perlinWeight parameter to control the amount of smoothing applied by Perlin Noise, which determines the balance between smoothness and randomness in platform positions. By adjusting this parameter, we can fine-tune the level of coherence in platform distribution.
+        Our implementation differs from the original Perlin Noise algorithm in that we use a minimal amount of Perlin Noise for slight smoothing, whereas the original algorithm typically generates more complex and detailed patterns.
+        The platform spawning and despawning process is managed using a Queue data structure, which helps maintain the platforms in the order they were generated. As the player moves forward and upward, new platforms are enqueued and spawned, while platforms far enough behind and below the player are dequeued and destroyed, ensuring efficient memory usage and preventing lag during gameplay.
+    </p>
 
     <h3>Texture Mapping</h3>
     <p>To generate textures for our 3D Doodle Jump game, we used Stable Diffusion [5], a diffusion based txt2img/img2img
@@ -149,10 +155,14 @@
 
     <h2>Problems Encountered</h2>
     <h3>Player Movement</h3>
-    <p>Insert your player movement problems text here.</p>
+    <p>One issue we encountered was the character's jittery rotation when changing directions quickly. We resolved this problem using the Mathf.SmoothDampAngle function, which smoothly interpolates the rotation over a specified time (turnSmoothTime).
+        Another challenge was ensuring the character's jump felt natural while also bouncing off the ground and enemy heads. We addressed this by using the isGrounded property of the CharacterController component and adjusting the gravityScale and jumpHeight variables to fine-tune the character's movement.
+    </p>
 
     <h3>Platform Spawner</h3>
-    <p>TODO</p>
+    <p>One problem we faced was adjusting the Perlin Noise parameters to achieve the desired platform distribution. We tackled this by introducing a perlinWeight parameter, which allowed us to fine-tune the balance between randomness and smoothness in platform positions.
+        Another issue was ensuring that platforms did not spawn partially inside other platforms. We addressed this by implementing a collider overlap check using Physics.OverlapBox, which prevented overlapping platforms from being generated.
+    </p>
 
     <h3>Texture Mapping</h3>
     <p>One of the main problems we encountered for texture mapping was the difficulty of creating textures that looked
@@ -182,10 +192,10 @@
 
     <h2>Lesson Learned</h2>
     <h3>Player Movement</h3>
-    <p>TODO</p>
+    <p>Throughout the development process, we learned the importance of utilizing built-in Unity components and functions, such as CharacterController and Mathf.SmoothDampAngle, to achieve smooth and efficient character movement. We also discovered the value of customizing physics properties like gravityScale to create a more immersive gameplay experience.</p>
 
     <h3>Platform Spawner</h3>
-    <p>TODO</p>
+    <p>From this project, we learned the importance of using procedural generation techniques, such as Perlin Noise, to create more engaging and visually appealing game environments. We also learned how to balance randomness and smoothness in platform positions using interpolation and weight parameters. Additionally, we discovered the value of collision detection in ensuring the proper functioning of game elements.</p>
 
     <h3>Texture Mapping</h3>
     <p>Generating textures for a 3D Doodle Jump game requires a lot of experimentation and iteration. It is essential to
@@ -218,7 +228,7 @@
                 <source src="assets/gamplayNoSound.mov" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <figcaption>gameplay of doodle jumping through platforms, killing enemies via shooting and stomping
+            <figcaption>Gameplay of doodle jumping through platforms, killing enemies via shooting and stomping
             </figcaption>
         </figure>
         <figure class="grid-item">
@@ -233,7 +243,7 @@
                 <source src="video3.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <figcaption>TODO: CHANGE THIS </figcaption>
+<!--            <figcaption>TODO: CHANGE THIS </figcaption>-->
         </figure>
     </div>
 
@@ -283,7 +293,6 @@
             generation
             in procedural generation, Git related troubleshooting to lean out final repository.
         </li>
-        <li>Neel Sen</li>
     </ul>
 </body>
 
