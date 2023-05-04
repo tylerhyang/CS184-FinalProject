@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Final Project Writeup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+            color: #555;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        h2 {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 28px;
+            color: #555;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+        }
+        h3 {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 24px;
+            color: #555;
+            text-transform: uppercase;
+        }
+        p {
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Final Project Writeup</h1>
+    
+    <h2>Abstract</h2>
+    <p>Doodle Jump, a game developed by Lima Sky in 2010, became an quick hit, presenting an infinite length game where players could continue to platform, shoot enemies, and climb to new heights.  With a rich set of computer graphics fundamentals used in the development of this game, we have reimagined the game in a 3D context, porting over some of the most beloved features from the original game into a three-dimensional scene.  In our project, we integrated a custom model player with the ability to rotate camera angles and jump from platform to platform, integrated three different enemy polymorphs with different abilities as well as their interactions with the player.  In addition, we have also developed a shooting mechanic for the player leveraging built-in raycasting and collision detection.  Additionally, we have integrated custom textures and models using AI generated tools such as Stable Diffusion.  The purpose of integrating these features is to increase the gameplay difficulty as well as providing an interactive third-person “platform-until-you-die” and shooter game while implementing the rich computer graphics requirements to result in a smooth and functional game.</p>
+    
+    <h2>Technical Approach</h2>
+    
+    <h3>Player Movement</h3>
+    <p>The primary script we developed, "PlayerMovement," is written in C# and utilizes Unity's built-in physics engine. We leveraged the CharacterController component for handling movement and collision detection, which offers better performance than Rigidbody for character control [1].
+        We utilized Quaternion and Euler angles for smooth character rotation, ensuring the character's orientation always matches its direction of movement. The Mathf.Atan2 function calculates the angle between the player's movement direction and the camera's forward direction. This angle is then converted to degrees with Mathf.Rad2Deg and added to the camera's y-axis Euler angle. Using Mathf.SmoothDampAngle, we interpolated the character's rotation over time, achieving a smooth transition between angles [2].
+        Gravity scaling was implemented by multiplying the default Physics.gravity by a user-defined gravityScale variable. This allowed us to customize the gravity strength, improving the feel of our character's jump [3].
+        We also enhanced the standard character jump found in many tutorials by implementing proper collision detection, ensuring the player bounces as soon as they touch the ground or an enemy's head. This was achieved using the isGrounded property of the CharacterController component [4].
+        </p>
+    
+    <h3>Texture Mapping</h3>
+    <p>To generate textures for our 3D Doodle Jump game, we used Stable Diffusion [5], a diffusion based txt2img/img2img generator that can generate high-quality textures with controlled inputs. We used it to generate textures for the platforms, background, and create initial mockups of the character designs of the game.</p>
+    
+    <p>In addition to using AI tools, we also created custom meshes with Blender and downloaded free models from online repositories and used them to populate our game world.</p>
+    
+    <p>With these custom meshes and textures ready, we imported them into the game and created custom prefabs with textured materials. We also edited the hitboxes of several enemy characters to provide a more satisfying jumping mechanic.</p>
+    
+    <p>Finally, we mapped the game's skybox to a custom textured cube map, which is used to simulate a three-dimensional background. By mapping the game's skybox to a custom textured cube map, we were able to create a realistic notebook page that added depth to our game world and reproduce the vanilla 2D design in 3D.</p>
+    
+    <h3>Enemy Development</h3>
+    
+<p>At the core of each enemy object type is defined by three main interactions: 1) if the player and enemy collide with the any face of the enemy aside from the top component, the player will be killed, 2) if the player shoots a pellet and the raycast intersects with the enemy, the enemy will be killed 3) if the player manages to land on the top of the bounding box of the enemy, the enemy will be killed. </p>
+<p>To integrate this, we needed to implement ways of detecting collisions. The most effective and consistent method was to designate each enemy object with two hitboxes: head and body. These hitboxes are collision-less structures, leveraging Unity’s Collision packages, specifically Collision.OnTriggerEnter (1). In prior sandbox testing, we noted that Unity’s Collision.OnCollisionEnter function would have inconsistent results due to how collisions were sampled, particularly prevalent with fast moving unity objects. In order to improve collision recognition accuracy, we designated two collision-less trigger volumes on the enemy: head and body. The head component has Collision.IsTrigger enabled which allowed for the detection of the movement through a trigger volume (2). Upon entering the head trigger volume, the Collision.OnTriggerEnter function would run, which would lead to destroying the enemy object in the scene (1). Likewise, we were able to apply the same logic to the body component to register kiling the enemy if the entering object is a player. Through manual testing, we noticed that the accuracy of enemy collision detection increased from 64% to 92% (using 100 trials).</p>
+<p>After implementing the base enemy logic, we introduced polymorphism in the form of three new enemy types, the most complex and noteworthy being the chaseEnemy. The chase enemy has two main functionalities: 1) chasing a player that are chaseDistance units away from the player (defaulted to 10 for our gameplay mechanics) 2) alerting other chase enemies that are alertDistance units away from the attacking chase enemy (defaulted to 20 units). To speed up this section, we constructed a bounding sphere around the enemy using the function Physics.OverlapSphere which would create a set of gameObjects that are within a sphere of radius alertDistance centered at the enemy. These Chase Enemies will now begin to chase after the player.</p>
+<p>For alert propagation, we noticed that the initial schema would lead to the signal propagation extremely far, causing chase enemies long distance away from the player to also chase after to player. In order to dampen the alert signal, we would only allow for enemies that are within chaseDistance units away from the player to trigger the alert, even if they are tracking the player. Using the concept of limiting search space from BVHs (bounding volume hierarchy), we used the precalculated list of gameObjects from the previous section and compute their distance from the player instead of calculating based on all objects in the scene. Drawing from the ideas of acceleration structures like BVH, we were able to significantly reduce the search space and allow for reduce compute time performed at each frame.</p>
+    
+    <h3>Ray Casting</h3>
+    <p>The other technical feature implemented was raycasting.  Raycasting is a way to cast a ray in a given direction from a point and determining whether it intersects with objects in a scene.  Intuitively, we were able to use this as the main component of shooting in our game.  For our shooting feature, we first modified the player model to have an invisible rigid body structure centered at the mouth of our doodle mesh model.  When the player interacts with the doodle and triggers the shoot action, we launch a projectile into the world space, using Physics.Raycast to determine what and when it intersects with the world (4).  In the case that the projectile intersects with an enemy, we will destroy the intersected enemy and remove it from the scene.  Using raycasting allows for computationally less expensive results than launching a projectile into the world and checking at each frame what it intersects with in the scene, therefore allowing for a less significant dip in framerate</p>
+    
+    <h2>Problems Encountered</h2>
+    
+    <h3>Player Movement</h3>
+    <p>Insert your player movement problems text here.</p>
+    
+    <h3>Texture Mapping</h3>
+    <p>Insert your texture mapping problems text here.</p>
+    
+    <h3>Enemy Development</h3>
+    <p>In prior sandbox testing, we noted that Unity’s Collision.OnCollisionEnter function would have inconsistent results due to how collisions were sampled, particularly prevalent with fast moving unity objects.  By shifting over to collision detection through trigger volume hitboxes, we were able to significantly increase the accuracy of detecting collisions and preventing enemies from persisting when a player’s jump should kill the enemy.  Through two rounds of testing using 100 static enemies spawned, we were able to increase the detection of collisions from 64% to 92%, improving the quality of the game and it’s interaction with enemies.
+    </p>
+    
+    <h2>Lesson Learned</h2>
+    <p>TODO @VINCENT @PRESTON: Insert your lesson learned text here.</p>
+    <p>Through the build process of our game, we noticed that Unity was able to provided a rich API to allow for the code that was needed to be minimal and concise.  Built in functions allowed for otherwise complex features such as initializing bounding regions and raycasting to be minimized to a few function calls.  Furthermore, we learned a lot about the niche features of Unity, especially trigger volumes for increasing detection accuracy as well as how we could use disjoint combinations of trigger volumes to allow for various combinations of interactions.  Using this understanding, for future game development, we hope to investigate how we can perform sequences of trigger volume interactions to perform modularly constructed chain events within a game scene.</p>
+</body>
+</html>
