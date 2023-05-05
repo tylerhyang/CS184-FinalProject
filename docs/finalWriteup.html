@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             font-size: 16px;
-            padding: 0 12%;
+            padding: 2% 12%;
         }
 
         h1 {
@@ -47,13 +47,15 @@
 <body>
     <h1>3D Doodle Jump</h1>
     <h2>Video Demo</h2>
+    <div style="text-align: center;">
     <figure class="grid-item">
-        <iframe width="100%" height="600px" src="https://www.youtube.com/embed/GI4okI-mG7o" title="YouTube video player"
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/GI4okI-mG7o" title="YouTube video player"
             frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen></iframe>
         <figcaption style="text-align: center;"><b>Video Overview of 3D Doodle Jump</b></figcaption>
     </figure>
+</div>
     <h2>Abstract</h2>
     <p>Doodle Jump, a game developed by Lima Sky in 2010, became an quick hit, presenting an infinite length game where
         players could continue to platform, shoot enemies, and climb to new heights. With a rich set of computer
@@ -108,7 +110,7 @@
         background. By mapping the game's skybox to a custom textured cube map, we were able to create a realistic
         notebook page that added depth to our game world and reproduce the vanilla 2D design in 3D.</p>
 
-    <h3>Enemy Development</h3>
+    <h3>Hitbox and Enemy Development</h3>
     <p>At the core of each enemy object type is defined by three main interactions: 1) if the player and enemy collide
         with the any face of the enemy aside from the top component, the player will be killed, 2) if the player shoots
         a pellet and the raycast intersects with the enemy, the enemy will be killed 3) if the player manages to land on
@@ -179,7 +181,7 @@
         solution worked quite well for us, and provided a much smoother gaming experience in our testing.
     </p>
 
-    <h3>Enemy Development</h3>
+    <h3>Hitbox and Enemy Development</h3>
     <p>In prior sandbox testing, we noted that Unity’s Collision.OnCollisionEnter function would have inconsistent
         results due to how collisions were sampled, particularly prevalent with fast moving unity objects. By shifting
         over to collision detection through trigger volume hitboxes, we were able to significantly increase the accuracy
@@ -210,7 +212,7 @@
         detection.
     </p>
 
-    <h3>Enemy Development</h3>
+    <h3>Hitbox and Enemy Development</h3>
     <p>Through the build process of our game, we noticed that Unity was able to provided a rich API to allow for the
         code that was needed to be minimal and concise. Built in functions allowed for otherwise complex features such
         as initializing bounding regions and raycasting to be minimized to a few function calls. Furthermore, we learned
@@ -223,28 +225,27 @@
 
     <h2>Results</h2>
     <div class="grid-container">
+        <div style="text-align: center;">
         <figure class="grid-item">
-            <video controls width="100%">
-                <source src="assets/gamplayNoSound.mov" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/-uy6O-uAqy0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             <figcaption>Gameplay of doodle jumping through platforms, killing enemies via shooting and stomping
             </figcaption>
         </figure>
+        </div>
+        <div style="text-align: center;">
         <figure class="grid-item">
-            <video controls width="100%">
-                <source src="assets/proceduralGenAndDespawn.mp4" type="video/mp4">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Gl-9V9hcU0s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <figcaption>Showcase of Procedural Generation and Removal of Platforms and Enemies</figcaption>
+        </figure>
+    </div>
+        <div style="text-align: center;">
+        <figure class="grid-item">
+            <video width="560" height="315" type="video/mp4" src="assets/enemyDemoEdit.mp4">
                 Your browser does not support the video tag.
             </video>
-            <figcaption>Showcase of Procedural Generation and Removal of Platforms and Enemies </figcaption>
+           <figcaption> Enemy introduction (alpha dev) </figcaption>
         </figure>
-        <figure class="grid-item">
-            <video controls width="100%">
-                <source src="video3.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-<!--            <figcaption>TODO: CHANGE THIS </figcaption>-->
-        </figure>
+    </div>
     </div>
 
 
@@ -272,6 +273,24 @@
         <li>Perlin, K. (1985). An image synthesizer. ACM SIGGRAPH Computer Graphics, 19(3), 287-296.</li>
         <li>Perlin, K. (2002). Improving noise. ACM Transactions on Graphics (TOG), 21(3), 681-682.</li>
         <li>Unity - Manual: Mathf.Lerp (n.d.). Retrieved from https://docs.unity3d.com/Manual/MathfLerp.html</li>
+    </ol>
+    <p>
+        For hitbox and enemy development:
+    </p>
+    <ol>
+        <li>Unity - Scripting API: Collider.OnTriggerEnter. (n.d.). Retrieved from
+            https://docs.unity3d.com/ScriptReference/Collider.OnTriggerEnter.html
+        </li>
+        <li>Unity - Scripting API: Collider.isTrigger. (n.d.). Retrieved from
+            https://docs.unity3d.com/ScriptReference/Collider-isTrigger.html
+        </li>
+        <li>Unity - Scripting API: Physics.OverlapSphere (n.d.). Retrieved from
+            https://docs.unity3d.com/ScriptReference/Physics.OverlapSphere.html
+        </li>
+        <li>Unity - Scripting API: Physics.Raycast (n.d.). Retrieved from
+            https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
+        </li>
+
     </ol>
 
 
